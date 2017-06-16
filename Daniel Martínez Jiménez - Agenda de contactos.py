@@ -3,10 +3,14 @@ import sys
 import os
 
 class AgendaContactos():
-
-    def controlContacto(nombre,telefono):
-
-        fich = open("fichero.txt", "r")
+    
+    def controlContacto(nombre,telefono):                          # CONTROLA EXISTENCIA DEL CONTACTO EN LA AGENDA
+        try:
+            fich = open("fichero.txt", "r")
+        except:
+            fich = open("fichero.txt", "w")
+            fich.close()
+            fich = open("fichero.txt", "r")
         lines = fich.readlines()
         fich.close()
 
@@ -20,8 +24,7 @@ class AgendaContactos():
                 menugeneral()
         return 1
 
-    def controlLista(nombre,telefono):
-
+    def controlLista(nombre,telefono):                             # CONTROLA EXISTENCIA DEL CONTACTO EN LA LISTA TEMPORAL
         for i in range (0,len(lista)):
             if nombre+"---"+telefono+"-" in lista[i]:
                 print("\nDATOS DE CONTACTO DETECTADOS EN LA LISTA TEMPORAL. ")
@@ -29,7 +32,7 @@ class AgendaContactos():
                 os.system('cls')
                 menugeneral()
 
-    def abrirFichero(lista):
+    def abrirFichero(lista):                                       # CONTROLA EXISTENCIA DEL FICHERO Y LO ABRE
         try:
             fich = open("fichero.txt", "r")
         except:
@@ -44,7 +47,7 @@ class AgendaContactos():
             os.system('cls')
             menugeneral()
 
-    def addContacto(nombre,telefono,email,empresa,telefOficina):
+    def addContacto(nombre,telefono,email,empresa,telefOficina):    # AÑADE NUEVO CONTACTO A LA LISTA TEMPORAL
         lista.append(nombre + '---' + telefono + '-' + email + '-' + empresa + '-' + telefOficina + "\n")
         print("\nNombre: ",nombre,"Teléfono: ",telefono,"E-mail: ",email,"Empresa: ",empresa,"Tlf. Oficina: ",telefOficina)
         input("\nCONTACTO AÑADIDO A LA LISTA TEMPORAL. Pulsa INTRO para continuar. ")
@@ -52,7 +55,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def listarContactos(lista):
+    def listarContactos(lista):                                     # MUESTRA LOS CONTACTOS DE LA LISTA TEMPORAL
         if len(lista)==0:
             input("\nLISTA TEMPORAL VACIA. Pulsa INTRO para continuar. ")
         else:
@@ -64,8 +67,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def eliminarContactos(lista):
-
+    def eliminarContactos(lista):                                   # BORRA LOS CONTACTOS DE LA LISTA TEMPORAL
         if len(lista)==0:
             input("\nLISTA VACÍA. NADA QUE BORRAR. Pulsa INTRO para continuar. ")
         else:
@@ -75,8 +77,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def leerContactos(fichero):
-
+    def leerContactos(fichero):                                     # MUESTRA LOS CONTACTOS EXISTENTES EN LA AGENDA
         print('\nContenido del fichero:')
         fich = open('fichero.txt','r')
         texto=fich.read()
@@ -95,8 +96,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def grabarContactos(lista):
-
+    def grabarContactos(lista):                                     # GRABA EN LA AGENDA LOS CONTACTOS DE LA LISTA TEMPORAL
         fich = open('fichero.txt', 'a')
 
         if len(lista)!=0:
@@ -116,8 +116,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def ordenarAgenda(self):
-
+    def ordenarAgenda(self):                                        # ORDENA LOS CONTACTOS EXISTENTES EN LA AGENDA
         fich = open("fichero.txt", "r")
         lines = fich.readlines()
         fich.close()
@@ -140,8 +139,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def modificarContacto(nombre_ant,telefono_ant):
-
+    def modificarContacto(nombre_ant,telefono_ant):                 # PERMITE MODIFICAR UN CONTACTO EXISTENTE EN LA AGENDA
         control=0
 
         fich = open("fichero.txt", "r")
@@ -161,8 +159,8 @@ class AgendaContactos():
         telefono = input("\t\tTeléfono: ")
 
         if nombre_ant != nombre or telefono_ant != telefono:
-            control=AgendaContactos.controlContacto(nombre,telefono)
-            control=AgendaContactos.controlLista(nombre,telefono)
+            AgendaContactos.controlContacto(nombre,telefono)
+            AgendaContactos.controlLista(nombre,telefono)
 
         email = input("\t\tE-mail: ")
         empresa = input("\t\tEmpresa: ")
@@ -183,8 +181,7 @@ class AgendaContactos():
         os.system('cls')
         menugeneral()
 
-    def borrarContacto(nombre,telefono):
-
+    def borrarContacto(nombre,telefono):                            # ELIMINA DE LA AGENDA LOS CONTACTOS DESEADOS
         control=0
         fich = open("fichero.txt", "r")
         lines = fich.readlines()
@@ -242,6 +239,7 @@ def menugeneral():
         telefono = input("\t\tTeléfono: ")
 
         control=AgendaContactos.controlContacto(nombre,telefono)
+        AgendaContactos.controlLista(nombre,telefono)
         if control == 1:
             email = input("\t\tE-mail: ")
             empresa = input("\t\tEmpresa: ")
