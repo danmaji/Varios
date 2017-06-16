@@ -1,10 +1,13 @@
+                            #################################################################
+                            ########## PROGRAMA QUE SIMULA UNA AGENDA DE CONTACTOS ##########
+                            #################################################################
 
 import sys
 import os
 
 class AgendaContactos():
     
-    def controlContacto(nombre,telefono):                          # CONTROLA EXISTENCIA DEL CONTACTO EN LA AGENDA
+    def controlContacto(nombre,telefono):                           # CONTROLA EXISTENCIA DEL CONTACTO EN LA AGENDA
         try:
             fich = open("fichero.txt", "r")
         except:
@@ -24,7 +27,7 @@ class AgendaContactos():
                 menugeneral()
         return 1
 
-    def controlLista(nombre,telefono):                             # CONTROLA EXISTENCIA DEL CONTACTO EN LA LISTA TEMPORAL
+    def controlLista(nombre,telefono):                              # CONTROLA EXISTENCIA DEL CONTACTO EN LA LISTA TEMPORAL
         for i in range (0,len(lista)):
             if nombre+"---"+telefono+"-" in lista[i]:
                 print("\nDATOS DE CONTACTO DETECTADOS EN LA LISTA TEMPORAL. ")
@@ -32,7 +35,7 @@ class AgendaContactos():
                 os.system('cls')
                 menugeneral()
 
-    def abrirFichero(lista):                                       # CONTROLA EXISTENCIA DEL FICHERO Y LO ABRE
+    def abrirFichero(lista):                                        # CONTROLA EXISTENCIA DEL FICHERO Y LO ABRE
         try:
             fich = open("fichero.txt", "r")
         except:
